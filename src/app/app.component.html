@@ -1,12 +1,12 @@
 <h1>This is the To Do List</h1>
 
 <!-- Input to enter new tasks -->
-<input type = "text" placeholder = "New Task" #task />
+<input type="text" placeholder="New Task" #task />
 
-<br>
+<br />
 <!-- Add new Tasks Button -->
-<button (click) ="addTask(task.value)">Add the New Task</button>
-<br>
+<button (click)="addTask(task.value)">Add the New Task</button>
+<br />
 <!-- DropDown for filtering-->
 <div>
   <label>Show Tasks: </label>
@@ -16,25 +16,18 @@
   </select>
 </div>
 
-
-
 <!-- Loop through the filtered list -->
-<ul *ngFor="let item of filteredList;index as i">
+<ul *ngFor="let item of filteredList; index as i">
   <li>
     <!-- 2 way data Binding -->
-    <input type="checkbox"  [(ngModel)]="item.completed" />
+    <input type="checkbox" [(ngModel)]="item.completed" />
     <!-- Display item name -->
-    {{item.name}} 
+    {{ item.name }}
     <span *ngIf="item.completed"> - Completed</span>
 
-   <!-- Display time stamp and change format -->
-   <!-- Date is a Pipe! -->
-    {{ item.timestamp | date:'medium' }}
-    <button 
-
-   
-
-      (click)="removeTask(i)">Remove Task</button></li>
+    <!-- Display time stamp and change format -->
+    <!-- Date is a Pipe! -->
+    {{ item.timestamp | date : "medium" }}
+    <button (click)="removeTask(i)">Remove Task</button>
+  </li>
 </ul>
-
-
