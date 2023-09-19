@@ -1,33 +1,42 @@
-<h1>This is the To Do List</h1>
+<div class="w-full h-screen flex flex-col items-center justify-center gap-5">
+  <h1>This is the To Do List</h1>
 
-<!-- Input to enter new tasks -->
-<input type="text" placeholder="New Task" #task />
+  <div class="flex flex-col items-center justify-center gap-3">
+    <input
+      type="text"
+      class="input input-bordered input-info w-full max-w-xs"
+      placeholder="New Task"
+      #task
+    />
+    <!-- Add new Tasks Button -->
+    <button class="btn btn-primary w-40" (click)="addTask(task.value)">
+      Add the New Task
+    </button>
+  </div>
+  <!-- Input to enter new tasks -->
 
-<br />
-<!-- Add new Tasks Button -->
-<button (click)="addTask(task.value)">Add the New Task</button>
-<br />
-<!-- DropDown for filtering-->
-<div>
-  <label>Show Tasks: </label>
-  <select [(ngModel)]="filterStatus">
-    <option value="all">All</option>
-    <option value="completed">Completed</option>
-  </select>
+  <!-- DropDown for filtering-->
+  <div>
+    <label>Show Tasks: </label>
+    <select [(ngModel)]="filterStatus">
+      <option value="all">All</option>
+      <option value="completed">Completed</option>
+    </select>
+  </div>
+
+  <!-- Loop through the filtered list -->
+  <ul *ngFor="let item of filteredList; index as i">
+    <li>
+      <!-- 2 way data Binding -->
+      <input type="checkbox" [(ngModel)]="item.completed" />
+      <!-- Display item name -->
+      {{ item.name }}
+      <span *ngIf="item.completed"> - Completed</span>
+
+      <!-- Display time stamp and change format -->
+      <!-- Date is a Pipe! -->
+      {{ item.timestamp | date : "medium" }}
+      <button (click)="removeTask(i)">Remove Task</button>
+    </li>
+  </ul>
 </div>
-
-<!-- Loop through the filtered list -->
-<ul *ngFor="let item of filteredList; index as i">
-  <li>
-    <!-- 2 way data Binding -->
-    <input type="checkbox" [(ngModel)]="item.completed" />
-    <!-- Display item name -->
-    {{ item.name }}
-    <span *ngIf="item.completed"> - Completed</span>
-
-    <!-- Display time stamp and change format -->
-    <!-- Date is a Pipe! -->
-    {{ item.timestamp | date : "medium" }}
-    <button (click)="removeTask(i)">Remove Task</button>
-  </li>
-</ul>
